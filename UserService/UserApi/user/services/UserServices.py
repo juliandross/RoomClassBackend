@@ -11,6 +11,7 @@ class UserService:
 
     @staticmethod
     def create_user(data):
+        
         if UserRepository.get_user_by_email(data.get('email')):
             raise ValueError("Email ya registrado")
         return UserRepository.create_user(**data)

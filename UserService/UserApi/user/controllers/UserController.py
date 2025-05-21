@@ -6,8 +6,12 @@ from UserApi.user.models.User import User
 from UserApi.user.serializer.UserSerializer import UserSerializer
 
 class UserListCreateView(APIView):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.userService = UserService()
+    
     def get(self, request):
-        users = UserService.list_users()
+        users = self.userService.list_users()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
 

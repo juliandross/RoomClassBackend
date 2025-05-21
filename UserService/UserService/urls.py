@@ -19,6 +19,6 @@ from django.urls import path
 from UserApi.user.controllers.UserController import UserListCreateView, UserDetailView
 
 urlpatterns = [
-    path('users/', UserListCreateView.as_view(), name='user-list-create'),
-    path('users/<int:user_id>/', UserDetailView.as_view(), name='user-detail'),
+    path('users/', UserListCreateView.as_view({'post':'post'}), name='user-list-create'),
+    path('users/<int:user_id>/', UserDetailView.as_view({'get':'get'}), name='user-detail'),
 ]
