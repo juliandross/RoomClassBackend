@@ -4,8 +4,10 @@ from rest_framework import status
 from UserApi.user.services.UserServices import UserService
 from UserApi.user.models.User import User
 from UserApi.user.serializer.UserSerializer import UserSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class UserListCreateView(APIView):
+    permission_classes = [AllowAny]
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.userService = UserService()
@@ -25,6 +27,7 @@ class UserListCreateView(APIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserDetailView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, user_id):
         user = UserService.retrieve_user(user_id)
         if not user:
