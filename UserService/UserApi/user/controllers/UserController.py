@@ -17,6 +17,7 @@ class UserListCreateView(APIView):
 
     def post(self, request):
         try:
+            print("Creando un usuario...")
             user = UserService.create_user(request.data)
             serializer = UserSerializer(user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
