@@ -1,9 +1,9 @@
 from rest_framework import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from SubjectApi.Subject.services.SubjectService import SubjectService
-from SubjectApi.Subject.serializer.SubjectSerializer import SubjectSerializer
-from SubjectApi.Subject.models.Subject import Subject
+from AcademApi.Subject.services.SubjectService import SubjectService
+from AcademApi.Subject.serializer.SubjectSerializer import SubjectSerializer
+from AcademApi.Subject.models.Subject import Subject
 
 class SubjectListCreateView(APIView):
     def __init__(self, **kwargs):

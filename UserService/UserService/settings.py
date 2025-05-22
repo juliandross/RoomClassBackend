@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'UserApi',
     'AcademApi',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

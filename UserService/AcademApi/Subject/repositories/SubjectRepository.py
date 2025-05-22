@@ -1,4 +1,4 @@
-from SubjectApi.Subject.models.Subject import Subject
+from AcademApi.Subject.models.Subject import Subject
 from django.core.exceptions import ObjectDoesNotExist
 
 class SubjectRepository:
