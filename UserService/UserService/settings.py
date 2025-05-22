@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'UserApi'
+    'UserApi',
+    'AcademApi',
 ]
 
 MIDDLEWARE = [
@@ -95,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'RoomClassDB',
         'USER': 'root',
-        'PASSWORD': 'Oracle123',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',  # Puerto por defecto de MySQL
         'OPTIONS': {
