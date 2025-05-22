@@ -23,7 +23,7 @@ class UserRepository:
     @staticmethod
     def create_user(**kwargs):
         password = kwargs.pop('password', None)
-        return User.objects.create_uyser(password=password, **kwargs)
+        return User.objects.create_user(password=password, **kwargs)
 
     @staticmethod
     def update_user(user, **kwargs):
