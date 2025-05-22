@@ -1,4 +1,4 @@
 from django.db import models
 
-from user.models.User import User
+from AcademApi.Subject.models.Subject import Subject
 # Import your models here.
