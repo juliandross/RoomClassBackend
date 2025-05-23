@@ -1,8 +1,20 @@
 from rest_framework import viewsets
 
+from AcademApi.Comp_RA_Subject.serializer.SubjectCompetenceSerializer import SubjectCompetenceSerializer
+from AcademApi.Comp_RA_Subject.models.SubjectCompetence import SubjectCompetence
+
+from AcademApi.Comp_RA_Subject.serializer.SubjectRASerializer import SubjectRASerializer
+from AcademApi.Comp_RA_Subject.models.SubjectRA import SubjectRA
+
+
 from AcademApi.Subject.models.Subject import Subject
 from AcademApi.Subject.serializer.SubjectSerializer import SubjectSerializer
 
-class SubjectViewSet(viewsets.ModelViewSet):
-    queryset = Subject.objects.all()
-    serializer_class = SubjectSerializer
+# Class to handle the SubjectCompetence API
+class SubjectCompetenceViewSet(viewsets.ModelViewSet):
+    queryset = SubjectCompetence.objects.all()
+    serializer_class = SubjectCompetenceSerializer
+
+class SubjectRAViewSet(viewsets.ModelViewSet):
+    queryset = SubjectRA.objects.all()
+    serializer_class = SubjectRASerializer

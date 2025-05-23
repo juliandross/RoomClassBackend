@@ -3,8 +3,9 @@ from rest_framework import routers
 from AcademApi import views
 
 routers = routers.DefaultRouter()
-routers.register(r'subjects', views.SubjectViewSet, basename='subject')
+routers.register(r'subjectCompetence', views.SubjectCompetenceViewSet, basename='subjectCompetence')
+routers.register(r'subjectRA', views.SubjectRAViewSet, basename='subjectRA')
 
 urlpatterns = [
-    path('', include(routers.urls)),
+    path('', include(routers.urls))
 ]
