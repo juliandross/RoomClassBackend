@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from UserApi.user.controllers.UserController import UserListCreateView, UserDetailView
+from AcademApi.Comp_RA_Subject.controllers.SubjectCompetenceController import SubjectCompetenceListCreateView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -31,5 +32,6 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # Subject Competence
-    path('AcademApi/', include('AcademApi.urls'))
+    path('AcademApi/subjectCompetence/', SubjectCompetenceListCreateView.as_view(), name='subject-competence-list-create'),
+    #path('AcademApi/', include('AcademApi.urls'))
 ]

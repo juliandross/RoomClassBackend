@@ -18,3 +18,7 @@ class SubjectCompetenceViewSet(viewsets.ModelViewSet):
 class SubjectRAViewSet(viewsets.ModelViewSet):
     queryset = SubjectRA.objects.all()
     serializer_class = SubjectRASerializer
+
+class SubjectViewSet(viewsets.ModelViewSet):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer

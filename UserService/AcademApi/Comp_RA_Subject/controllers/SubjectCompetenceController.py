@@ -4,8 +4,10 @@ from rest_framework import status
 from AcademApi.Comp_RA_Subject.services.SubjectCompetenceService import SubjectCompetenceService
 from AcademApi.Comp_RA_Subject.serializer.SubjectCompetenceSerializer import SubjectCompetenceSerializer
 from AcademApi.Comp_RA_Subject.models.SubjectCompetence import SubjectCompetence
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class SubjectCompetenceListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         print("Lita de competencias de asignatura")
         SubjectCompetence = SubjectCompetenceService.list_all_subject_competences()
@@ -21,6 +23,7 @@ class SubjectCompetenceListCreateView(APIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 class SubjectCompetenceDetailView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, comp_id):
         SubjectCompetence = SubjectCompetenceService.get_subject_competence_by_id(comp_id)
         if SubjectCompetence:

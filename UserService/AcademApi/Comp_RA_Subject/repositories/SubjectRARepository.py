@@ -1,4 +1,4 @@
-from AcademApi.Comp_RA_Subject.models import SubjectRA
+from AcademApi.Comp_RA_Subject.models.SubjectRA import SubjectRA
 from django.core.exceptions import ObjectDoesNotExist
 
 class SubjectRARepository:

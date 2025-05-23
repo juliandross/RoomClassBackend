@@ -4,8 +4,10 @@ from rest_framework import status
 from AcademApi.Subject.services.SubjectService import SubjectService
 from AcademApi.Subject.serializer.SubjectSerializer import SubjectSerializer
 from AcademApi.Subject.models.Subject import Subject
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class SubjectListCreateView(APIView):
+    permission_classes = [IsAuthenticated]    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.subjectService = SubjectService()
@@ -25,6 +27,7 @@ class SubjectListCreateView(APIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class SubjectDetailView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, subject_id):
         subject = self.subjectService.retrieve_subject(subject_id)
         if not subject:

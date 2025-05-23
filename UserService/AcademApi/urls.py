@@ -5,7 +5,7 @@ from AcademApi import views
 routers = routers.DefaultRouter()
 routers.register(r'subjectCompetence', views.SubjectCompetenceViewSet, basename='subjectCompetence')
 routers.register(r'subjectRA', views.SubjectRAViewSet, basename='subjectRA')
-
+routers.register(r'subject', views.SubjectViewSet, basename='subject')
 urlpatterns = [
     path('', include(routers.urls))
 ]

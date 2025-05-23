@@ -4,8 +4,10 @@ from rest_framework import status
 
 from AcademApi.Comp_RA_Subject.serializer.SubjectRASerializer import SubjectRASerializer
 from AcademApi.Comp_RA_Subject.services.SubjectRAService import SubjectRAService
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 class SubjectRAListCreateView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         subject_ras = SubjectRAService.list_all_subject_ra()
         serializer = SubjectRASerializer(subject_ras, many=True)
@@ -20,6 +22,7 @@ class SubjectRAListCreateView(APIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 class SubjectRADetailView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, subjectRA_id):
         subject_ra = SubjectRAService.get_subject_ra_by_id(subjectRA_id)
         if subject_ra:

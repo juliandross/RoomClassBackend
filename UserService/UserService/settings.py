@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Auth
 AUTH_USER_MODEL = 'UserApi.User'
 
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -97,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'RoomClassDB',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'Oracle123',
         'HOST': 'localhost',
         'PORT': '3306',  # Puerto por defecto de MySQL
         'OPTIONS': {

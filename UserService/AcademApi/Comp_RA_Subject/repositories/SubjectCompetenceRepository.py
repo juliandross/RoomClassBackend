@@ -1,4 +1,4 @@
-from AcademApi.Comp_RA_Subject.models import SubjectCompetence
+from AcademApi.Comp_RA_Subject.models.SubjectCompetence import SubjectCompetence
 from django.core.exceptions import ObjectDoesNotExist
 
 class SubjectCompetenceRepository:
