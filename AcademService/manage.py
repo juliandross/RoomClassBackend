@@ -3,6 +3,8 @@
 import os
 import sys
 
+#  ruta a 'common_models' para que sea importable
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'common_models')))
 
 def main():
     """Run administrative tasks."""

@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from AcademApi.Comp_RA_Subject.controllers.SubjectCompetenceController import SubjectCompetenceListCreateView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Subject Competence

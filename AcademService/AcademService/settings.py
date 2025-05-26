@@ -34,7 +34,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # Auth
-AUTH_USER_MODEL = 'AcademApi.User'
+AUTH_USER_MODEL = 'user.User'
 
 
 REST_FRAMEWORK = {
