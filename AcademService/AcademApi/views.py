@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import viewsets
 
 from AcademApi.Comp_RA_Subject.serializer.SubjectCompetenceSerializer import SubjectCompetenceSerializer

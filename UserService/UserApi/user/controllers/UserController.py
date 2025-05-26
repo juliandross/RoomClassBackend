@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from UserApi.user.services.UserServices import UserService
-from UserApi.user.models.User import User
+from common_models.user.User import User
 from UserApi.user.serializer.UserSerializer import UserSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 

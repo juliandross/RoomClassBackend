@@ -1,5 +1,5 @@
 """
-URL configuration for UserService project.
+URL configuration for AcademService project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -15,20 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from UserApi.user.controllers.UserController import UserListCreateView, UserDetailView
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-
+from django.urls import path
 
 urlpatterns = [
-    # Users
-    path('users/', UserListCreateView.as_view(), name='user-list-create'),
-    path('users/<int:user_id>/', UserDetailView.as_view(), name='user-detail'),
-    # Auth
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path('admin/', admin.site.urls),
+    # Subject Competence
+    path('AcademApi/subjectCompetence/', SubjectCompetenceListCreateView.as_view(), name='subject-competence-list-create'),
+    #path('AcademApi/', include('AcademApi.urls'))
 ]

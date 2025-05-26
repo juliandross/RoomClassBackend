@@ -1,4 +1,4 @@
-from UserApi.user.models.User import User
+from common_models.user.User import User
 from django.core.exceptions import ObjectDoesNotExist
 
 class UserRepository:
