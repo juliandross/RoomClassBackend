@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, viewsets
 from UserApi.user.services.UserServices import UserService
 from common_models.user.User import User
 from UserApi.user.serializer.UserSerializer import UserSerializer
@@ -18,13 +18,7 @@ class UserListCreateView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        try:
-            print("Creando un usuario...")
-            user = UserService.create_user(request.data)
-            serializer = UserSerializer(user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except ValueError as e:
-            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return UserService.create_user(request.data)
 
 class UserDetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -47,3 +41,15 @@ class UserDetailView(APIView):
         if not success:
             return Response({"detail": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserController(viewsets.ViewSet):
+    
+    def __init__(self):
+        self.user_service = UserService()
+    permission_classes = [IsAuthenticated]
+    
+    def getUserByEmail(self, request, email=None):
+        user = self.user_service.get_user_by_email(email)
+        if not user:
+            return None
+        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)

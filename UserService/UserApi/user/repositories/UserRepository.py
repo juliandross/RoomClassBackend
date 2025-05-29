@@ -23,7 +23,9 @@ class UserRepository:
     @staticmethod
     def create_user(**kwargs):
         password = kwargs.pop('password', None)
-        return User.objects.create_user(password=password, **kwargs)
+        user = User.objects.create_user(password=password, **kwargs)
+        print(f"Usuario creado: {user}")
+        return user 
 
     @staticmethod
     def update_user(user, **kwargs):
@@ -35,3 +37,10 @@ class UserRepository:
     @staticmethod
     def delete_user(user):
         user.delete()
+        
+    @staticmethod
+    def get_user_by_email(email):
+        try:
+            return User.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return None
