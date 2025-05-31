@@ -15,13 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from AcademApi.Comp_RA_Subject.controllers.SubjectCompetenceController import SubjectCompetenceListCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Subject Competence
-    path('AcademApi/subjectCompetence/', SubjectCompetenceListCreateView.as_view(), name='subject-competence-list-create'),
-    #path('AcademApi/', include('AcademApi.urls'))
+    #path('AcademApi/subjectCompetence/', SubjectCompetenceListCreateView.as_view(), name='subject-competence-list-create'),
+    path('AcademApi/', include('AcademApi.urls'))
 ]
