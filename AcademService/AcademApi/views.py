@@ -26,6 +26,13 @@ from AcademApi.Subject.serializer.SubjectTeacherPeriodSerializer import SubjectT
 from AcademApi.Program_Subject.models.CompetenceProgramSubject import CompetenceProgramSubject
 from AcademApi.Program_Subject.serializer.CompetenceProgramSubjectSerializer import CompetenceProgramSubjectSerializer
 
+from AcademApi.Rubrics.models.Level import Level
+from AcademApi.Rubrics.serializer.LevelSerializer import LevelSerializer
+from AcademApi.Rubrics.models.EvaluationCriteria import EvaluationCriteria
+from AcademApi.Rubrics.serializer.EvaluationCriteriaSerializer import EvaluationCriteriaSerializer
+from AcademApi.Rubrics.models.Rubric import Rubric
+from AcademApi.Rubrics.serializer.RubricSerializer import RubricSerializer
+
 # Class to handle the directory Comp_RA_Subject
 class SubjectCompetenceViewSet(viewsets.ModelViewSet):
     queryset = SubjectCompetence.objects.all()
@@ -65,3 +72,17 @@ class ProgramRAViewSet(viewsets.ModelViewSet):
 class CompetenceProgramSubjectViewSet(viewsets.ModelViewSet):
     queryset = CompetenceProgramSubject.objects.all()
     serializer_class = CompetenceProgramSubjectSerializer
+
+# Class to handle the directory Rubrics
+class LevelViewSet(viewsets.ModelViewSet):
+    queryset = Level.objects.all()
+    serializer_class = LevelSerializer
+
+class EvaluationCriteriaViewSet(viewsets.ModelViewSet):
+    queryset = EvaluationCriteria.objects.all()
+    serializer_class = EvaluationCriteriaSerializer
+
+# Class to handle the directory Rubric
+class RubricViewSet(viewsets.ModelViewSet):
+    queryset = Rubric.objects.all()
+    serializer_class = RubricSerializer

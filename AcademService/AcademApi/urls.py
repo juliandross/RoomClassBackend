@@ -12,6 +12,9 @@ routers.register(r'period', views.PeriodViewSet, basename='period')
 routers.register(r'teacher', views.TeacherViewSet, basename='teacher')
 routers.register(r'subjectTeacherPeriod', views.SubjectTeacherPeriodViewSet, basename='subjectTeacherPeriod')
 routers.register(r'competenceProgramSubject', views.CompetenceProgramSubjectViewSet, basename='competenceProgramSubject')
+routers.register(r'level', views.LevelViewSet, basename='level')
+routers.register(r'evaluationCriteria', views.EvaluationCriteriaViewSet, basename='evaluationCriteria')
+routers.register(r'rubric', views.RubricViewSet, basename='rubric')
 
 urlpatterns = [
     path('', include(routers.urls))
