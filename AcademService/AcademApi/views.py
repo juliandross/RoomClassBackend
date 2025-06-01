@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from AcademApi.Comp_RA_Subject.serializer.SubjectCompetenceSerializer import SubjectCompetenceSerializer
 from AcademApi.Comp_RA_Subject.models.SubjectCompetence import SubjectCompetence
@@ -46,6 +48,61 @@ class SubjectRAViewSet(viewsets.ModelViewSet):
 class SubjectViewSet(viewsets.ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+    
+    # Action to get all Subjects with their associated Competences (signature competences)
+    # and their associated RAs (RAs Subject)
+    @action(detail=False, methods=['get'], url_path='subjectCompetence/subjectRA')
+    def subjects_with_competences_and_ra(self, request):
+        subjects = Subject.objects.prefetch_related(
+            'subjectteacherperiod_set__subjectcompetence_set__subjectra_set'
+        )
+    
+        data = []
+        for subject in subjects:
+            competences_data = []
+            
+            # Accedemos por las relaciones prefetch
+            for stp in subject.subjectteacherperiod_set.all():
+                for subjectCompetence in stp.subjectcompetence_set.all():
+                    ras = subjectCompetence.subjectra_set.all()
+                    competences_data.append({
+                        'Competence': SubjectCompetenceSerializer(subjectCompetence).data,
+                        'SubjectRA': SubjectRASerializer(ras, many=True).data
+                    })
+            
+            data.append({
+                'Subject': SubjectSerializer(subject).data,
+                'SubjectCompetences': competences_data
+            })
+        
+        return Response(data)
+
+    
+    # Action to get a Subject with their associated Competences (signature competences)
+    # and their associated RAs (RAs Subject)
+    @action(detail=True, methods=['get'], url_path='subjectCompetence/subjectRA')
+    def subject_with_competences_and_ra_by_id(self, request, pk=None):
+        try:
+            subject = Subject.objects.get(pk=pk)
+        except Subject.DoesNotExist:
+            return Response({'error': 'Asignatura no encontrada.'}, status=404)
+        
+        # Buscar todas las competencias de asignatura asociadas directamente por relación
+        subject_competences = SubjectCompetence.objects.filter(subjectTeacherPeriod__subject=subject)
+        
+        # Para cada competencia, buscar los RA asociados
+        data = []
+        for subjectCompetence in subject_competences:
+            ras = SubjectRA.objects.filter(subjectCompetence=subjectCompetence)
+            data.append({
+                'Competence': SubjectCompetenceSerializer(subjectCompetence).data,
+                'SubjectRA': SubjectRASerializer(ras, many=True).data
+            })
+        
+        return Response({
+            'subject': SubjectSerializer(subject).data,
+            'SubjectCompetences': data
+        })
 
 class PeriodViewSet(viewsets.ModelViewSet):
     queryset = Period.objects.all()
@@ -64,6 +121,33 @@ class ProgramCompetenceViewSet(viewsets.ModelViewSet):
     queryset = ProgramCompetence.objects.all()  
     serializer_class = ProgramCompetenceSerializer
     
+    # Action to get all Program Competences with their associated RAs
+    @action(detail=False, methods=['get'], url_path='RA_asociated')
+    def program_competence_with_ra_asociated(self, request):
+        competences = ProgramCompetence.objects.all()
+        data = []
+        for competence in competences:
+            ra_count = ProgramRA.objects.filter(programCompetence = competence)
+            data.append({
+               'competenceProgram': ProgramCompetenceSerializer(competence).data,
+               'RA_Program': ProgramRASerializer(ra_count, many=True).data
+            })
+        return Response(data)
+    
+    # Action to get a program competence with their associated RAs by ID
+    @action(detail=True, methods=['get'], url_path='RA_asociated')
+    def program_competence_with_ra_asociated_by_id(self, request, pk=None):
+        try:
+            competence = ProgramCompetence.objects.get(pk=pk)
+            ra_count = ProgramRA.objects.filter(programCompetence=competence)
+            data = {
+                'competenceProgram': ProgramCompetenceSerializer(competence).data,
+                'RA_Program': ProgramRASerializer(ra_count, many=True).data
+            }
+            return Response(data)
+        except ProgramCompetence.DoesNotExist:
+            return Response({'error': 'Competencia de programa no encontrada.'}, status=404)
+        
 class ProgramRAViewSet(viewsets.ModelViewSet):
     queryset = ProgramRA.objects.all()
     serializer_class = ProgramRASerializer
