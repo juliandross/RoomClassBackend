@@ -1,6 +1,8 @@
-from SubjectApi.Subject.repositories.SubjectRepository import SubjectRepository
+from AcademApi.Subject.repositories.SubjectRepository import SubjectRepository
 
 class SubjectService:
+    def __init__(self):
+        self.subject_repository = SubjectRepository()
     @staticmethod
     def list_subjects():
         return SubjectRepository.get_all_subjects()

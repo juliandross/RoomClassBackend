@@ -32,3 +32,11 @@ class SubjectTeacherPeriodRepository:
     @staticmethod
     def delete_subject_teacher_period(subject_teacher_period):
         subject_teacher_period.delete()
+        
+    @staticmethod
+    def get_subject_report(subject_id):
+        try:
+            subjectReport = SubjectTeacherPeriod.objects.select_related('subject', 'teacher', 'period').get(id=subject_id)
+            return subjectReport
+        except SubjectTeacherPeriod.DoesNotExist:
+            return None

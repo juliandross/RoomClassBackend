@@ -1,10 +1,11 @@
-from rest_framework import APIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from AcademApi.Subject.services.SubjectService import SubjectService
 from AcademApi.Subject.serializer.SubjectSerializer import SubjectSerializer
 from AcademApi.Subject.models.Subject import Subject
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import viewsets
 
 class SubjectListCreateView(APIView):
     permission_classes = [IsAuthenticated]    
@@ -47,3 +48,4 @@ class SubjectDetailView(APIView):
         if not success:
             return Response({"detail": "Asignatura no encontrada"}, status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_204_NO_CONTENT)
+    

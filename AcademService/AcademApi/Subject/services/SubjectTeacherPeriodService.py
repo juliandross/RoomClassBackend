@@ -1,6 +1,10 @@
 from AcademApi.Subject.repositories.SubjectTeacherPeriodRepository import SubjectTeacherPeriodRepository
-
+from rest_framework.response import Response
+from rest_framework import status
 class SubjectTeacherPeriodService:
+    def __init__(self):
+        self.subject_teacher_period_repository = SubjectTeacherPeriodRepository()
+        
     @staticmethod
     def list_all_subject_teacher_periods():
         return SubjectTeacherPeriodRepository.get_all_subject_teacher_periods()
@@ -27,3 +31,11 @@ class SubjectTeacherPeriodService:
             SubjectTeacherPeriodRepository.delete_subject_teacher_period(subject_teacher_period)
             return True
         return False
+    
+        
+    @staticmethod
+    def get_subject_report(subject_id):
+        subject_teacher_period = SubjectTeacherPeriodRepository.get_subject_report(subject_id)
+        if not subject_teacher_period:
+            return None
+        return subject_teacher_period
