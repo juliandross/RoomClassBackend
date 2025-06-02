@@ -23,7 +23,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     rol = models.CharField(max_length=20, default='DOCENTE')
-
+    is_superuser = models.BooleanField(default=False)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
