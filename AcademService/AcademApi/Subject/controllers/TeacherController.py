@@ -5,7 +5,7 @@ from AcademApi.Subject.services.TeacherService import TeacherService
 from AcademApi.Subject.serializer.TeacherSerializer import TeacherSerializer
 from AcademApi.Subject.models.Teacher import Teacher
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import viewsets
 class TeacherListCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -43,3 +43,19 @@ class TeacherDetailView(APIView):
         if TeacherService.delete_teacher(tea_id):
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response({"detail": "Docente no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+class TeacherController(viewsets.ViewSet):
+    def __init__(self):
+        self.teacher_service = TeacherService()
+        permission_classes = [IsAuthenticated]
+    
+
+    def create_teacher_by_coordinator(self, request):
+        rol = getattr(request.user, 'rol', None)
+        print(f"Rol del usuario solicitante: {rol}")
+        result = TeacherService.create_teacher_by_coordinator(request.data, rol)
+        if isinstance(result, Response):
+            return result  # Ya es una respuesta de error
+        serializer = TeacherSerializer(result)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    

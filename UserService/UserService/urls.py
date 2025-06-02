@@ -23,6 +23,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from UserApi.user.serializer.UserSerializer import CustomTokenObtainPairSerializer
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
 
 urlpatterns = [
     # Users
@@ -31,6 +35,6 @@ urlpatterns = [
     path('users/email/<str:email>/', UserController.as_view({'get':'getUserByEmail'}), name='user-by-email'),
     path('users/coordinate/', UserController.as_view({'post':'createCoordinate'}), name='user-coordinate'),
     # Auth
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', CustomTokenObtainPairView.as_view(), name='token_refresh'),
 ]

@@ -1,5 +1,5 @@
 from AcademApi.Subject.repositories.TeacherRepository import TeacherRepository
-
+from rest_framework.response import Response
 class TeacherService:
     @staticmethod
     def list_all_teachers():
@@ -27,3 +27,9 @@ class TeacherService:
             TeacherRepository.delete_teacher(teacher)
             return True
         return False
+    
+    @staticmethod
+    def create_teacher_by_coordinator(data, rol):
+        if rol != 'COORDINADOR':
+            return Response({'detail': 'No autorizado. Solo coordinadores pueden crear docentes.'}, status=403)
+        return TeacherRepository.create_teacher_by_coordinator(**data)

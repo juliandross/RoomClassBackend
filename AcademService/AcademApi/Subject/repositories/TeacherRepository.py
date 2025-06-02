@@ -32,3 +32,13 @@ class TeacherRepository:
     @staticmethod
     def delete_teacher(teacher):
         teacher.delete()
+        
+    @staticmethod
+    def create_teacher_by_coordinator(**kwargs):
+        password = kwargs.pop('password', None)
+        teacher = Teacher.objects.create(**kwargs)
+        if password:
+            teacher.set_password(password)
+        teacher.save()
+        return teacher
+    
