@@ -44,3 +44,17 @@ class UserRepository:
             return User.objects.get(email=email)
         except ObjectDoesNotExist:
             return None
+
+    @staticmethod
+    def createCoordinate(data):
+        try:
+            user = User.objects.get(email=data['email'])
+            user.coordinate = data.get('COORDINADOR', None)
+            user.save()
+            return user
+        except ObjectDoesNotExist:
+            print(f"Usuario con email {data['email']} no encontrado.")
+            return
+        except KeyError:
+            print("El campo 'email' es requerido en los datos.")
+            return

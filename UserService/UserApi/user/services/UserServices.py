@@ -53,3 +53,18 @@ class UserService:
         if not user:
             return Response({"detail": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
         return user
+
+    @staticmethod
+    def createCoordinate(data):
+        if not data.get('email'):
+            return Response({"detail": "El correo electrónico es requerido"}, status=status.HTTP_400_BAD_REQUEST)
+        if not data.get('password'):
+            return Response({"detail": "La contraseña es requerida"}, status=status.HTTP_400_BAD_REQUEST)
+        if UserRepository.get_user_by_email(data.get('email')):
+            return Response({"detail": "El correo electrónico ya está en uso"}, status=status.HTTP_400_BAD_REQUEST)
+        user = UserRepository.createCoordinate(**data)
+        if not user:
+            return Response({"detail": "Error al crear el usuario"}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    

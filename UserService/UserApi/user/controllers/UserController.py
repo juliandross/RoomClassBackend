@@ -53,3 +53,10 @@ class UserController(viewsets.ViewSet):
         if not user:
             return None
         return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+    
+    def createCoordinate(self, request):
+        data = request.data
+        user = self.user_service.createCoordinate(data)
+        if isinstance(user, Response):
+            return user
+        return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
