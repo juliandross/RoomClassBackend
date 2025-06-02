@@ -4,7 +4,9 @@ from rest_framework import status
 from AcademApi.Subject.services.SubjectTeacherPeriodService import SubjectTeacherPeriodService
 from AcademApi.Subject.serializer.SubjectTeacherPeriodSerializer import SubjectTeacherPeriodSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 
+from AcademApi.Subject.serializer.SubjectReportSerializer import SubjectReportSerializer
 class SubjectTeacherPeriodListCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -42,3 +44,18 @@ class SubjectTeacherPeriodDetailView(APIView):
         if SubjectTeacherPeriodService.delete_subject_teacher_period(stp_id):
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response({"detail": "Asignatura docente periodo no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+    
+class SubjectAssingController(viewsets.ViewSet):
+    def __init__(self):
+        self.subject_service = SubjectTeacherPeriodService()
+        permission_classes = [IsAuthenticated]
+        
+    # This method is used to get the report of a subject (Teacher, Subject and Period)
+    def get_subject_report(self, request, subject_id=None):
+        subjectReport = self.subject_service.get_subject_report(subject_id)
+        if not subjectReport:
+            return Response({"detail": "No encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        return Response(
+            SubjectReportSerializer(subjectReport).data,
+            status=status.HTTP_200_OK
+        )

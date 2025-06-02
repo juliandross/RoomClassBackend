@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from AcademApi import views
+from AcademApi.Subject.controllers.SubjectTeacherPeriodController import SubjectAssingController
 
 routers = routers.DefaultRouter()
 routers.register(r'subjectCompetence', views.SubjectCompetenceViewSet, basename='subjectCompetence')
@@ -15,7 +16,8 @@ routers.register(r'competenceProgramSubject', views.CompetenceProgramSubjectView
 routers.register(r'level', views.LevelViewSet, basename='level')
 routers.register(r'evaluationCriteria', views.EvaluationCriteriaViewSet, basename='evaluationCriteria')
 routers.register(r'rubric', views.RubricViewSet, basename='rubric')
-
 urlpatterns = [
-    path('', include(routers.urls))
+    path('', include(routers.urls)),
+    # Subject related URLs
+    path('subjectReport/<int:subject_id>/', SubjectAssingController.as_view({'get': 'get_subject_report'}), name='subject-report'),
 ]
