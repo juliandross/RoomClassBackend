@@ -1,10 +1,11 @@
 from django.db import models
+from common_models.user.User import User
 
-class Teacher(models.Model):
-    teaMail = models.EmailField(max_length=254, unique=True)
-    teaName = models.CharField(max_length=100)
-    teaLastName = models.CharField(max_length=100)
+class Teacher(User):
     teaType = models.CharField(max_length=50)
     teaTypeId = models.CharField(max_length=50)
     teaRecentTitle = models.CharField(max_length=100, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'Teacher'
+        verbose_name_plural = 'Teachers'

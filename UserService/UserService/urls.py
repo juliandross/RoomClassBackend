@@ -29,8 +29,8 @@ urlpatterns = [
     path('users/', UserListCreateView.as_view(), name='user-list-create'),
     path('users/<int:user_id>/', UserDetailView.as_view(), name='user-detail'),
     path('users/email/<str:email>/', UserController.as_view({'get':'getUserByEmail'}), name='user-by-email'),
+    path('users/coordinate/', UserController.as_view({'post':'createCoordinate'}), name='user-coordinate'),
     # Auth
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
 ]

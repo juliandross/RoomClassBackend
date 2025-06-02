@@ -20,10 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n)y^!w8362j^&*1bq8edv5or$9%x*ckmsxb4vpvh8%(b0lcdq%'
+SECRET_KEY = 'django-insecure-grg-dlw8t&s-%jxalze-ba&bxw^rc7@i^16nta(k2t-pc2_-ns'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+#JWT settings
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +49,9 @@ AUTH_USER_MODEL = 'user.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     ),
 }
 
