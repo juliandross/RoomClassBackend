@@ -46,14 +46,15 @@ class UserRepository:
             return None
 
     @staticmethod
-    def createCoordinate(data):
+    def createCoordinate(**kwargs):
         try:
-            user = User.objects.get(email=data['email'])
-            user.coordinate = data.get('COORDINADOR', None)
-            user.save()
+            # Puedes forzar el rol aquí si quieres
+            kwargs['rol'] = 'COORDINADOR'
+            password = kwargs.pop('password', None)
+            user = User.objects.create_user(password=password, **kwargs)
             return user
         except ObjectDoesNotExist:
-            print(f"Usuario con email {data['email']} no encontrado.")
+            print(f"Usuario con email {kwargs['email']} no encontrado.")
             return
         except KeyError:
             print("El campo 'email' es requerido en los datos.")

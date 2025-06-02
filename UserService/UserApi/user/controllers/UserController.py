@@ -47,13 +47,19 @@ class UserController(viewsets.ViewSet):
     def __init__(self):
         self.user_service = UserService()
     permission_classes = [IsAuthenticated]
+        
+    def get_permissions(self):
+        if self.action == 'createCoordinate':
+            return [AllowAny()]
+        return [IsAuthenticated()]
     
+
     def getUserByEmail(self, request, email=None):
         user = self.user_service.get_user_by_email(email)
         if not user:
             return None
         return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
-    
+
     def createCoordinate(self, request):
         data = request.data
         user = self.user_service.createCoordinate(data)
