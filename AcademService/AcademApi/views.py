@@ -34,6 +34,7 @@ from AcademApi.Rubrics.models.EvaluationCriteria import EvaluationCriteria
 from AcademApi.Rubrics.serializer.EvaluationCriteriaSerializer import EvaluationCriteriaSerializer
 from AcademApi.Rubrics.models.Rubric import Rubric
 from AcademApi.Rubrics.serializer.RubricSerializer import RubricSerializer
+from AcademApi.permissions import IsCoordinator
 
 # Class to handle the directory Comp_RA_Subject
 class SubjectCompetenceViewSet(viewsets.ModelViewSet):
@@ -43,12 +44,13 @@ class SubjectCompetenceViewSet(viewsets.ModelViewSet):
 class SubjectRAViewSet(viewsets.ModelViewSet):
     queryset = SubjectRA.objects.all()
     serializer_class = SubjectRASerializer
+    
 
 # Class to handle the direcory Subject 
 class SubjectViewSet(viewsets.ModelViewSet):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-    
+    permission_classes = [IsCoordinator]
     # Action to get all Subjects with their associated Competences (signature competences)
     # and their associated RAs (RAs Subject)
     @action(detail=False, methods=['get'], url_path='subjectCompetence/subjectRA')
