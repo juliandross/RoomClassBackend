@@ -40,3 +40,7 @@ class SubjectTeacherPeriodRepository:
             return subjectReport
         except SubjectTeacherPeriod.DoesNotExist:
             return None
+        
+    @staticmethod
+    def list_subject_reports():
+        return SubjectTeacherPeriod.objects.select_related('subject', 'teacher', 'period').all()

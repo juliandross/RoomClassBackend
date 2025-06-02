@@ -5,6 +5,7 @@ from AcademApi.Subject.services.SubjectTeacherPeriodService import SubjectTeache
 from AcademApi.Subject.serializer.SubjectTeacherPeriodSerializer import SubjectTeacherPeriodSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
 
 from AcademApi.Subject.serializer.SubjectReportSerializer import SubjectReportSerializer
 class SubjectTeacherPeriodListCreateView(APIView):
@@ -50,8 +51,9 @@ class SubjectAssingController(viewsets.ViewSet):
         self.subject_service = SubjectTeacherPeriodService()
         permission_classes = [IsAuthenticated]
         
+        
     # This method is used to get the report of a subject (Teacher, Subject and Period)
-    def get_subject_report(self, request, subject_id=None):
+    def get_subject_report_by_id(self, request, subject_id=None):
         subjectReport = self.subject_service.get_subject_report(subject_id)
         if not subjectReport:
             return Response({"detail": "No encontrado"}, status=status.HTTP_404_NOT_FOUND)
@@ -59,3 +61,11 @@ class SubjectAssingController(viewsets.ViewSet):
             SubjectReportSerializer(subjectReport).data,
             status=status.HTTP_200_OK
         )
+        
+    def list_subject_report(self, request):
+        subjectReports = SubjectTeacherPeriodService.list_subject_reports()
+        paginator = PageNumberPagination()
+        paginator.page_size = 10 
+        result_page = paginator.paginate_queryset(subjectReports, request)
+        serializer = SubjectReportSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
