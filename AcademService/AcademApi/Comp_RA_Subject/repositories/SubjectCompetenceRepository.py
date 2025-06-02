@@ -32,3 +32,8 @@ class SubjectCompetenceRepository:
     @staticmethod
     def delete_subject_competence(subjectCompetence):
         subjectCompetence.delete()
+        
+    @staticmethod
+    def get_subject_competences_by_asginature(asignature_id=None):
+        
+        return SubjectCompetence.objects.filter(programCompetence=asignature_id).all()

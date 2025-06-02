@@ -27,3 +27,8 @@ class SubjectCompetenceService:
             SubjectCompetenceRepository.delete_subject_competence(subject_competence)
             return True
         return False
+    
+    @staticmethod
+    def get_subject_competences_by_asginature(asignature_id=None):
+        # Traer el objeto SubjectTeacherPeriod que tiene la competencia
+        return SubjectCompetenceRepository.get_subject_competences_by_asginature(asignature_id)

@@ -5,7 +5,7 @@ from AcademApi.Comp_RA_Subject.services.SubjectCompetenceService import SubjectC
 from AcademApi.Comp_RA_Subject.serializer.SubjectCompetenceSerializer import SubjectCompetenceSerializer
 from AcademApi.Comp_RA_Subject.models.SubjectCompetence import SubjectCompetence
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
+from rest_framework import viewsets
 class SubjectCompetenceListCreateView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
@@ -42,3 +42,15 @@ class SubjectCompetenceDetailView(APIView):
         if SubjectCompetenceService.delete_subject_competence(comp_id):
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response({"detail": "Competencia de asignatura no encontrada."}, status=status.HTTP_404_NOT_FOUND)
+
+class SubjectCompetenceController(viewsets.ViewSet):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.SubjectCompetenceService = SubjectCompetenceService()
+        permission_classes = [IsAuthenticated]
+    
+    def list_subject_competences_by_asignature(self, request, asignature_id=None):
+        print(f"Listando competencias de asignatura: {asignature_id}")
+        SubjectCompetences = SubjectCompetenceService.get_subject_competences_by_asginature(asignature_id)
+        serializer = SubjectCompetenceSerializer(SubjectCompetences, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
