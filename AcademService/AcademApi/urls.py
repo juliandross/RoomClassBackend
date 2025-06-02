@@ -19,5 +19,6 @@ routers.register(r'rubric', views.RubricViewSet, basename='rubric')
 urlpatterns = [
     path('', include(routers.urls)),
     # Subject related URLs
-    path('subjectReport/<int:subject_id>/', SubjectAssingController.as_view({'get': 'get_subject_report'}), name='subject-report'),
+    path('subjectReport/<int:subject_id>/', SubjectAssingController.as_view({'get': 'get_subject_report_by_id'}), name='subject-report'),
+    path('subjectReport/', SubjectAssingController.as_view({'get': 'list_subject_report'}), name='subject-reports'),
 ]

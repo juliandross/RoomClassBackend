@@ -37,5 +37,12 @@ class SubjectTeacherPeriodService:
     def get_subject_report(subject_id):
         subject_teacher_period = SubjectTeacherPeriodRepository.get_subject_report(subject_id)
         if not subject_teacher_period:
-            return None
+            return Response({"detail": "Reporte de asignatura no encontrado."}, status=status.HTTP_404_NOT_FOUND)
         return subject_teacher_period
+    
+    @staticmethod
+    def list_subject_reports():
+        subject_teacher_periods = SubjectTeacherPeriodRepository.list_subject_reports()
+        if not subject_teacher_periods:
+            return Response({"detail": "No se encontraron reportes de asignaturas."}, status=status.HTTP_404_NOT_FOUND)
+        return subject_teacher_periods
