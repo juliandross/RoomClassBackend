@@ -36,9 +36,8 @@ class TeacherRepository:
     @staticmethod
     def create_teacher_by_coordinator(**kwargs):
         password = kwargs.pop('password', None)
-        teacher = Teacher.objects.create(**kwargs)
+        teacher = Teacher(**kwargs)  # No uses .create aquí
         if password:
             teacher.set_password(password)
         teacher.save()
         return teacher
-    
