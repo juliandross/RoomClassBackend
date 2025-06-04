@@ -60,6 +60,8 @@ class UserService:
             return Response({"detail": "El correo electrónico es requerido"}, status=status.HTTP_400_BAD_REQUEST)
         if not data.get('password'):
             return Response({"detail": "La contraseña es requerida"}, status=status.HTTP_400_BAD_REQUEST)
+        if not data.get('identification'):
+            return Response({"detail": "La identificación es requerida"}, status=status.HTTP_400_BAD_REQUEST)
         if UserRepository.get_user_by_email(data.get('email')):
             return Response({"detail": "El correo electrónico ya está en uso"}, status=status.HTTP_400_BAD_REQUEST)
         if UserRepository.get_user_by_identification(data.get('identification')):
