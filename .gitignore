@@ -175,3 +175,5 @@ cython_debug/
 
 # python caché
 __pycache__
+AcademService/AcademApi/migrations/0001_initial.py
+common_models/common_models/user/migrations/0001_initial.py
