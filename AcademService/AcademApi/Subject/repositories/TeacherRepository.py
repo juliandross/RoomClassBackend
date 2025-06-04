@@ -15,6 +15,17 @@ class TeacherRepository:
         except ObjectDoesNotExist:
             return None
     
+    @staticmethod
+    def get_teacher_by_email(email):
+        """
+        Get a teacher by their email.
+        Returns None if no teacher is found with the given email.
+        """
+        try:
+            return Teacher.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return None
+    
     # Metodo para crear un profesor
     @staticmethod
     def create_teacher(**kwargs):
