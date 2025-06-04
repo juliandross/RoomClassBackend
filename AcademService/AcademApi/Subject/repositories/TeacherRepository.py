@@ -45,6 +45,16 @@ class TeacherRepository:
         teacher.delete()
         
     @staticmethod
+    def get_teacher_by_identification(identification):
+        """
+        Get a teacher by their identification.
+        Returns None if no teacher is found with the given identification.
+        """
+        try:
+            return Teacher.objects.get(identification=identification)
+        except ObjectDoesNotExist:
+            return None
+    @staticmethod
     def create_teacher_by_coordinator(**kwargs):
         password = kwargs.pop('password', None)
         teacher = Teacher(**kwargs)  # No uses .create aquí

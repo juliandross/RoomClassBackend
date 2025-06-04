@@ -13,11 +13,11 @@ INSERT INTO academApi_subject (subjectName, subjectDescription, subjectCredits, 
 VALUES ('Física', 'Física general', 5, 1, TRUE);
 
 -- Inserta un usuario en user_user (debes tener esta tabla creada por el modelo User)
-INSERT INTO user_user (email, first_name, last_name, is_active, is_staff, rol, password, is_superuser)
-VALUES ('profesor1@ejemplo.com', 'Ana', 'García', TRUE, FALSE, 'DOCENTE', '1234', FALSE);
+INSERT INTO user_user (email, identification, first_name, last_name, is_active, is_staff, rol, password, is_superuser)
+VALUES ('profesor1@ejemplo.com', 111111,'Ana', 'García', TRUE, FALSE, 'DOCENTE', '1234', FALSE);
 
 INSERT INTO user_user (email, first_name, last_name, is_active, is_staff, rol, password,is_superuser )
-VALUES ('profesor2@ejemplo.com', 'Luis', 'Martínez', TRUE, FALSE, 'DOCENTE', '1234', FALSE);
+VALUES ('profesor2@ejemplo.com', 222222,'Luis', 'Martínez', TRUE, FALSE, 'DOCENTE', '1234', FALSE);
 
 -- Inserta Teachers (hereda de user_user)
 INSERT INTO academApi_teacher (user_ptr_id, teaType, teaTypeId, teaRecentTitle)

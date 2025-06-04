@@ -62,6 +62,8 @@ class UserService:
             return Response({"detail": "La contraseña es requerida"}, status=status.HTTP_400_BAD_REQUEST)
         if UserRepository.get_user_by_email(data.get('email')):
             return Response({"detail": "El correo electrónico ya está en uso"}, status=status.HTTP_400_BAD_REQUEST)
+        if UserRepository.get_user_by_identification(data.get('identification')):
+            return Response({"detail": "Ya existe un usuario con esta identificación"}, status=status.HTTP_400_BAD_REQUEST)
         user = UserRepository.createCoordinate(**data)
         if not user:
             return Response({"detail": "Error al crear el usuario"}, status=status.HTTP_400_BAD_REQUEST)

@@ -35,12 +35,14 @@ class TeacherService:
             return Response({'detail': 'No autorizado. Solo coordinadores pueden crear docentes.'}, status=403)
         if 'password' not in data:
             return Response({'detail': 'El campo "password" es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
-        if not data.get('name') or not data.get('email'):
+        if not data.get('first_name') or not data.get('email') or not data.get('last_name'):
             return Response({'detail': 'Los campos "name" y "email" son obligatorios.'}, status=status.HTTP_400_BAD_REQUEST)
         if TeacherRepository.get_teacher_by_id(data.get('id')):
             return Response({'detail': 'Ya existe un docente con este ID.'}, status=status.HTTP_400_BAD_REQUEST)
         if TeacherRepository.get_teacher_by_email(data.get('email')):
             return Response({'detail': 'Ya existe un docente con este email.'}, status=status.HTTP_400_BAD_REQUEST)
+        if TeacherRepository.get_teacher_by_identification(data.get('identification')):
+            return Response({'detail': 'Ya existe un docente con esta identificación.'}, status=status.HTTP_400_BAD_REQUEST)
         if not data.get('rol'):
             data['rol'] = 'DOCENTE'
         return TeacherRepository.create_teacher_by_coordinator(**data)

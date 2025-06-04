@@ -12,7 +12,12 @@ class UserRepository:
             return User.objects.get(id=user_id)
         except ObjectDoesNotExist:
             return None
-
+    @staticmethod
+    def get_user_by_identification(identification):
+        try:
+            return User.objects.get(identification=identification)
+        except ObjectDoesNotExist:
+            return None
     @staticmethod
     def get_user_by_email(email):
         try:
