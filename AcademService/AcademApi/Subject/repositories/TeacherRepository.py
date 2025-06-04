@@ -82,3 +82,18 @@ class TeacherRepository:
             return teacher
         except ObjectDoesNotExist:
             return None
+        
+    @staticmethod
+    def patch_teacher(tea_id, data):
+        """
+        Patch a teacher's information.
+        This method updates only the fields provided in the data dictionary.
+        """
+        try:
+            teacher = Teacher.objects.get(id=tea_id)
+            for attr, value in data.items():
+                setattr(teacher, attr, value)
+            teacher.save()
+            return teacher
+        except ObjectDoesNotExist:
+            return None

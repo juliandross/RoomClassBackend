@@ -30,6 +30,6 @@ urlpatterns = [
     path('teacherCreateByCoordinator/', TeacherController.as_view({'post':'create_teacher_by_coordinator'}), name='teacher-create-by-coordinator'),
     path('avaliableTeachers/', TeacherController.as_view({'get': 'list_avaliable_teachers'}), name='avaliable-teachers'),
     path('unactivateTeacher/<int:tea_id>/', TeacherController.as_view({'patch': 'unactivate_teacher'}), name='unactivate-teacher'),
-
+    path('patchTeacher/<int:tea_id>/', TeacherController.as_view({'patch': 'patch_teacher'}), name='patch-teacher'),
     
 ]
