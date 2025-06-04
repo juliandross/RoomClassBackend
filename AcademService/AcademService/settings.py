@@ -25,6 +25,12 @@ SECRET_KEY = 'django-insecure-grg-dlw8t&s-%jxalze-ba&bxw^rc7@i^16nta(k2t-pc2_-ns
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# CORS_ALLOWED_ORIGINS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "https://room-class-front.vercel.app"  
+]
+
 #JWT settings
 from datetime import timedelta
 SIMPLE_JWT = {
@@ -36,12 +42,6 @@ SIMPLE_JWT = {
 
 ALLOWED_HOSTS = []
 
-
-# CORS_ALLOWED_ORIGINS
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "https://room-class-front.vercel.app"  
-]
 
 # Auth
 AUTH_USER_MODEL = 'user.User'
@@ -81,10 +81,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200", 
-]
-
 
 ROOT_URLCONF = 'AcademService.urls'
 

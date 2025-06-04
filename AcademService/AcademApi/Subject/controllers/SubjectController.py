@@ -49,3 +49,19 @@ class SubjectDetailView(APIView):
             return Response({"detail": "Asignatura no encontrada"}, status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+    
+class SubjectController(viewsets.ViewSet):
+    def __init__(self):
+        self.subjectService = SubjectService()
+        self.permission_classes = [IsAuthenticated]
+        
+    def list_available_subjects(self, request):
+        subjects = self.subjectService.list_available_subjects()
+        serializer = SubjectSerializer(subjects, many=True)
+        return Response(serializer.data)
+    
+    def unactivate_subject(self, request, subject_id):
+        result = SubjectService.unactivate_subject(subject_id)
+        if isinstance(result, Response):
+            return result  # Ya es una respuesta de error (404)
+        return Response({"detail": "Asignatura desactivada correctamente."}, status=status.HTTP_200_OK)

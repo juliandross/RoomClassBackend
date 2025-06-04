@@ -66,3 +66,9 @@ class UserController(viewsets.ViewSet):
         if isinstance(user, Response):
             return user
         return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+    
+    def patch_user(self, request, user_id):
+        user = self.user_service.patch_user(user_id, request.data)
+        if isinstance(user, Response):
+            return user
+        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)

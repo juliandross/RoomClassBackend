@@ -12,7 +12,12 @@ class UserRepository:
             return User.objects.get(id=user_id)
         except ObjectDoesNotExist:
             return None
-
+    @staticmethod
+    def get_user_by_identification(identification):
+        try:
+            return User.objects.get(identification=identification)
+        except ObjectDoesNotExist:
+            return None
     @staticmethod
     def get_user_by_email(email):
         try:
@@ -59,3 +64,13 @@ class UserRepository:
         except KeyError:
             print("El campo 'email' es requerido en los datos.")
             return
+
+    @staticmethod
+    def patch_user(user, **kwargs):
+        """
+        Actualiza un usuario existente con los datos proporcionados.
+        """
+        for attr, value in kwargs.items():
+            setattr(user, attr, value)
+        user.save()
+        return user
