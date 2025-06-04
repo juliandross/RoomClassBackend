@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "https://room-class-front.vercel.app" 
+]
+
 
 # Auth
 AUTH_USER_MODEL = 'user.User'
@@ -71,11 +76,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-]
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "https://room-class-front.vercel.app" 
 ]
 
 ROOT_URLCONF = 'UserService.urls'

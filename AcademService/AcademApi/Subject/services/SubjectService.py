@@ -1,5 +1,6 @@
 from AcademApi.Subject.repositories.SubjectRepository import SubjectRepository
-
+from rest_framework.response import Response
+from rest_framework import status
 class SubjectService:
     def __init__(self):
         self.subject_repository = SubjectRepository()
@@ -31,3 +32,14 @@ class SubjectService:
             return None
         SubjectRepository.delete_subject(subject)
         return True
+
+    @staticmethod
+    def list_available_subjects():
+        return SubjectRepository.list_available_subjects()
+    
+    @staticmethod
+    def unactivate_subject(subject_id):
+        subject = SubjectRepository.get_subject_by_id(subject_id)
+        if not subject:
+            return Response({"detail": "Asignatura no encontrada."}, status=status.HTTP_404_NOT_FOUND)
+        return SubjectRepository.unactivate_subject(subject_id)

@@ -41,3 +41,23 @@ class TeacherRepository:
             teacher.set_password(password)
         teacher.save()
         return teacher
+    
+    @staticmethod
+    def list_avaliable_teachers():
+        """
+        List all available teachers.
+        This method can be extended to filter teachers based on specific criteria.
+        """
+        return Teacher.objects.filter(is_active=True)  # Assuming is_active is a field in Teacher model
+    
+    @staticmethod
+    def unactivate_teacher(tea_id):
+        try:
+            teacher = Teacher.objects.get(id=tea_id)
+            if(not teacher.is_active):
+                return None
+            teacher.is_active = False 
+            teacher.save()
+            return teacher
+        except ObjectDoesNotExist:
+            return None

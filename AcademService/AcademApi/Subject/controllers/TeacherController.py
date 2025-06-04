@@ -59,3 +59,14 @@ class TeacherController(viewsets.ViewSet):
         serializer = TeacherSerializer(result)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+    def list_avaliable_teachers(self, request):
+        teachers = TeacherService.list_avaliable_teachers()
+        serializer = TeacherSerializer(teachers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def unactivate_teacher(self, request, tea_id):
+        teacher = TeacherService.unactivate_teacher(tea_id)
+        if isinstance(teacher, Response):
+            return teacher
+        serializer = TeacherSerializer(teacher)
+        return Response(serializer.data, status=status.HTTP_200_OK)
