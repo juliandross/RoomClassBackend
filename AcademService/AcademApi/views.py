@@ -196,6 +196,28 @@ class TeacherViewSet(viewsets.ModelViewSet):
             'Subjects': subjects_data
         }
         return Response(result)
+    # Action to get a Teacher with their associated SubjectTeacherPeriod
+    @action(detail=True, methods=['get'], url_path='SubjectTeacherPeriod_asociated')
+    def teacher_byId_with_subject_asociated(self, request, pk=None):
+        try:
+            teacher = Teacher.objects.get(pk=pk)
+        except Teacher.DoesNotExist:
+            return Response({'error': 'Docente no encontrado.'}, status=404)
+        
+        # Obtener todos los SubjectTeacherPeriod asociados a este docente
+        subject_teacher_periods = SubjectTeacherPeriod.objects.filter(teacher=teacher).distinct()
+        
+        stp_data = []
+        for stp in subject_teacher_periods:
+            stp_data.append({
+                'SubjectTeacherPeriod': SubjectTeacherPeriodSerializer(stp).data,
+            })
+        
+        result = {
+            'Teacher': TeacherSerializer(teacher).data,
+            'SubjectTeacherPeriods': stp_data
+        }
+        return Response(result)
             
 class SubjectTeacherPeriodViewSet(viewsets.ModelViewSet):
     queryset = SubjectTeacherPeriod.objects.all()
