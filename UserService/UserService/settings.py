@@ -31,7 +31,30 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "https://room-class-front.vercel.app" 
 ]
+CORS_ALLOW_CREDENTIALS = True
 
+# Opcional: Define los métodos HTTP permitidos (GET, POST, PUT, DELETE, OPTIONS, etc.)
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+# Opcional: Define las cabeceras HTTP permitidas
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization", # Si usas tokens de autorización (ej. Bearer Token)
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken", # Si usas CSRF tokens
+    "x-requested-with",
+]
 
 # Auth
 AUTH_USER_MODEL = 'user.User'
@@ -67,15 +90,14 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware', # Idealmente, SecurityMiddleware va primero
+    'corsheaders.middleware.CorsMiddleware', # AQUI DEBE IR CORSHEADERS, LO MAS ALTO POSIBLE
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # <- MOVIDO AQUI
 ]
 
 ROOT_URLCONF = 'UserService.urls'
