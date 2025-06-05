@@ -1,0 +1,76 @@
+from common_models.user.User import User
+from django.core.exceptions import ObjectDoesNotExist
+
+class UserRepository:
+    @staticmethod
+    def get_all_users():
+        return User.objects.all()
+
+    @staticmethod
+    def get_user_by_id(user_id):
+        try:
+            return User.objects.get(id=user_id)
+        except ObjectDoesNotExist:
+            return None
+    @staticmethod
+    def get_user_by_identification(identification):
+        try:
+            return User.objects.get(identification=identification)
+        except ObjectDoesNotExist:
+            return None
+    @staticmethod
+    def get_user_by_email(email):
+        try:
+            return User.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return None
+
+    @staticmethod
+    def create_user(**kwargs):
+        password = kwargs.pop('password', None)
+        user = User.objects.create_user(password=password, **kwargs)
+        print(f"Usuario creado: {user}")
+        return user 
+
+    @staticmethod
+    def update_user(user, **kwargs):
+        for attr, value in kwargs.items():
+            setattr(user, attr, value)
+        user.save()
+        return user
+
+    @staticmethod
+    def delete_user(user):
+        user.delete()
+        
+    @staticmethod
+    def get_user_by_email(email):
+        try:
+            return User.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return None
+
+    @staticmethod
+    def createCoordinate(**kwargs):
+        try:
+            # Puedes forzar el rol aquí si quieres
+            kwargs['rol'] = 'COORDINADOR'
+            password = kwargs.pop('password', None)
+            user = User.objects.create_user(password=password, **kwargs)
+            return user
+        except ObjectDoesNotExist:
+            print(f"Usuario con email {kwargs['email']} no encontrado.")
+            return
+        except KeyError:
+            print("El campo 'email' es requerido en los datos.")
+            return
+
+    @staticmethod
+    def patch_user(user, **kwargs):
+        """
+        Actualiza un usuario existente con los datos proporcionados.
+        """
+        for attr, value in kwargs.items():
+            setattr(user, attr, value)
+        user.save()
+        return user

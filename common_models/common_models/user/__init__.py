@@ -1,0 +1,1 @@
+default_app_config = 'common_models.user.apps.CommonUserConfig'
