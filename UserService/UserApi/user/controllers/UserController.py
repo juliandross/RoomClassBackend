@@ -10,8 +10,7 @@ class UserListCreateView(APIView):
     permission_classes = [AllowAny]
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.userService = UserService()
-    
+        self.userService = UserService()    
     def get(self, request):
         users = self.userService.list_users()
         serializer = UserSerializer(users, many=True)
